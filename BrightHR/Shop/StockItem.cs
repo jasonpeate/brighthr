@@ -6,9 +6,9 @@
 
         public string Description { get; }
 
-        public double Price { get; }
+        public int Price { get; }
 
-        public StockItem(string SKU, string Description, double Price)
+        public StockItem(string SKU, string Description, int Price)
         {
             //TODO : check for nulls and empty here.
             this.SKU = SKU;
