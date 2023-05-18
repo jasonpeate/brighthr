@@ -9,11 +9,13 @@
 //Pricing rules need to be passed in each check out session
 //Check for invalid sku
 //Special and none special count
+//Check for negitage price
 
 
 //No mention of removing items?
 //No mention of cross item specials
 //No mention of many specials per sku, assume 1
+//
 
 //Class for Items
 SKU  - char
