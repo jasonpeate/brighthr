@@ -13,7 +13,15 @@ namespace Shop.Test
         public void PassingInSingleItemToCheckOutReturnsDefaultPriceWhenGetTotalPriceCalled()
         {
             //Arrange
-            ICheckout ic;
+            ICheckout ic = new Checkout();
+            int Amount;
+
+            //Act
+            ic.Scan("");
+            Amount = ic.GetTotalPrice();
+
+            Assert.AreEqual(0, Amount);
+
         }
     }
 }
