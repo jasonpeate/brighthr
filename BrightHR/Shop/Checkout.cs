@@ -13,7 +13,7 @@
 
         public int GetTotalPrice()
         {
-            //TODO : should this not be a double?
+            //TODO : should this return not be a double?
             return Price;
         }
 
