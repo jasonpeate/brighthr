@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BrightHR/Shop.Test/obj
+/BrightHR/Shop/obj
+/BrightHR/.vs/BrightHR/FileContentIndex
+/BrightHR/.vs/BrightHR/v17/.suo
+/.vs
