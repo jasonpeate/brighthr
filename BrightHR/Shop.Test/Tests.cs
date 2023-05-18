@@ -3,25 +3,37 @@ namespace Shop.Test
     [TestClass]
     public class Tests
     {
+        private HashSet<StockItem> StockItems;
+
         [TestInitialize]
         public void Setup()
         {
-            // Runs before each test. (Optional)
+            StockItems = new HashSet<StockItem>()
+            {
+                new StockItem("A","Item A",50),
+                new StockItem("B","Item B",30)
+            };
         }
 
         [TestMethod]
         public void PassingInSingleItemToCheckOutReturnsDefaultPriceWhenGetTotalPriceCalled()
         {
             //Arrange
-            ICheckout ic = new Checkout();
+            ICheckout ic = new Checkout(StockItems,null);
             int Amount;
 
             //Act
-            ic.Scan("");
+            Random random = new();
+            int toCheck = random.Next(0, StockItems.Count);
+
+            StockItem item = StockItems.ElementAt(toCheck);
+
+            ic.Scan(item.SKU);
             Amount = ic.GetTotalPrice();
 
-            Assert.AreEqual(0, Amount);
+            Assert.AreEqual(item.Price, Amount);
 
         }
+
     }
 }
