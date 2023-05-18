@@ -1,0 +1,26 @@
+﻿//Be able to scan items in any order
+//Group them together once scaned
+//Check for pricing combo
+//if no pricing combo use default price * number of items
+//else use pricing combo rules
+
+//SKU is a single character - char
+
+//Pricing rules need to be passed in each check out session
+//Check for invalid sku
+//Special and none special count
+
+
+//No mention of removing items?
+//No mention of cross item specials
+//No mention of many specials per sku, assume 1
+
+//Class for Items
+SKU  - char
+Description - string
+Price - double
+
+//Class for special pricing
+//Sku - char
+//NumberOfItems - int
+//Double price for number of items
