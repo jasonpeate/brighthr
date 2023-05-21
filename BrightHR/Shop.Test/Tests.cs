@@ -1,9 +1,13 @@
+using System;
+
 namespace Shop.Test
 {
     [TestClass]
     public class Tests
     {
         private HashSet<StockItem> StockItems;
+
+        private HashSet<SpecialPrice> SpecialPrices;
 
         [TestInitialize]
         public void Setup()
@@ -15,13 +19,19 @@ namespace Shop.Test
                 new StockItem("C","Item C",20),
                 new StockItem("D","Item D",15)
             };
+
+            SpecialPrices = new HashSet<SpecialPrice>()
+            {
+                new SpecialPrice("A",3,130),
+                new SpecialPrice("B",2,45)
+            };
         }
 
         [TestMethod]
         public void PassingInSingleItemToCheckOutReturnsDefaultPriceWhenGetTotalPriceCalled()
         {
             //Arrange
-            ICheckout ic = new Checkout(StockItems,null);
+            ICheckout ic = new Checkout(StockItems, null);
             int Amount;
 
             //Act
@@ -99,6 +109,57 @@ namespace Shop.Test
             RetunedAmount = ic.GetTotalPrice();
 
             Assert.AreEqual(CheckAmount, RetunedAmount);
+
+        }
+
+        [TestMethod]
+        public void PassingInDifferentItemsWithSpecialsOnlyCalucatesCorrectly()
+        {
+            //Arrange
+            ICheckout ic = new Checkout(StockItems, SpecialPrices);
+            int RetunedAmount;
+            string Item = "A"; // TODO : this has holes in it
+
+
+            //Act
+            StockItem item = StockItems.Single(a => a.SKU == Item);
+
+            SpecialPrice SpecialPrice = SpecialPrices.Single(a => a.SKU.Equals(Item));
+
+
+            for (int i = 0; i < SpecialPrice.NumberOfItems; i++)
+            {
+                ic.Scan(item.SKU);
+            }  
+
+            RetunedAmount = ic.GetTotalPrice();
+
+            Assert.AreEqual(RetunedAmount, SpecialPrice.Price);
+
+        }
+
+        [TestMethod]
+        public void PassingInDifferentItemsWithSpecialsAndNormalPricesCalucatesCorrectly()
+        {
+            //Arrange
+            ICheckout ic = new Checkout(StockItems, SpecialPrices);
+            int RetunedAmount;
+            string Item = "A"; // TODO : this has holes in it
+
+
+            //Act
+            StockItem item = StockItems.Single(a => a.SKU == Item);
+
+            SpecialPrice SpecialPrice = SpecialPrices.Single(a => a.SKU.Equals(Item));
+
+            for (int i = 0; i < SpecialPrice.NumberOfItems + 1; i++)
+            {
+                ic.Scan(item.SKU);
+            }
+
+            RetunedAmount = ic.GetTotalPrice();
+
+            Assert.AreEqual(RetunedAmount, SpecialPrice.Price + item.Price);
 
         }
 
